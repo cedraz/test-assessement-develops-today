@@ -73,8 +73,8 @@ export class CountriesService {
 
     return {
       country: country,
-      population: population,
-      flag: flag,
+      population: population.error ? [] : population.data.populationCounts,
+      flag: flag.error ? '' : flag.data.flag,
     };
   }
 }

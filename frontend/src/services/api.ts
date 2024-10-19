@@ -26,7 +26,7 @@ export async function getCountry(
     return null;
   }
 
-  const country = await response.json();
+  const responseData = await response.json();
 
-  return country;
+  return responseData;
 }

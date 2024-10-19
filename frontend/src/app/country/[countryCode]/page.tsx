@@ -9,9 +9,15 @@ export default async function Country({
 }) {
   const data = await getCountry(params.countryCode);
 
+  console.log(data);
+
   if (!data) {
     redirect("/404");
   }
 
-  return <CountryCard countryResponse={data} />;
+  return (
+    <div className="w-full min-h-screen flex items-center justify-center">
+      <CountryCard countryResponse={data} />
+    </div>
+  );
 }
