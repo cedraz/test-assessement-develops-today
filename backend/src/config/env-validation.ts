@@ -1,5 +1,12 @@
 import { plainToInstance } from 'class-transformer';
-import { IsNotEmpty, IsUrl, validateSync } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsUrl,
+  Max,
+  Min,
+  validateSync,
+} from 'class-validator';
 
 class EnvironmentVariables {
   @IsUrl()
@@ -9,6 +16,11 @@ class EnvironmentVariables {
   @IsUrl()
   @IsNotEmpty()
   COUNTRIESNOW_API_URL: string;
+
+  @IsNumber()
+  @Min(0)
+  @Max(65535)
+  PORT: number;
 }
 
 export function validate(config: Record<string, unknown>) {

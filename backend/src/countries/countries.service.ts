@@ -6,6 +6,7 @@ import {
 import { GetCountryDto } from './dto/get-country.dto';
 import { Country } from './entities/country.entity';
 import { ConfigService } from '@nestjs/config';
+import { Population } from './entities/population.entity';
 
 @Injectable()
 export class CountriesService {
@@ -25,7 +26,11 @@ export class CountriesService {
     return data;
   }
 
-  async findOne(getCountryDto: GetCountryDto) {
+  async findOne(getCountryDto: GetCountryDto): Promise<{
+    country: Country;
+    population: Population;
+    flag: string;
+  }> {
     const countryRequest = await fetch(
       `${this.configService.get('DATA_NAGER_API_URL')}/CountryInfo/${getCountryDto.country_code}`,
     );
@@ -75,7 +80,7 @@ export class CountriesService {
     const flag = await flagRequest.json();
 
     return {
-      borders: country.borders,
+      country: country,
       population: population,
       flag: flag.data.flag,
     };

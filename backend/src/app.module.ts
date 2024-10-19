@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { CountriesModule } from './countries/countries.module';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './config/env-validation';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { validate } from './config/env-validation';
     ConfigModule.forRoot({
       isGlobal: true,
       validate: validate,
+      envFilePath: join(__dirname, '../../.env'),
     }),
   ],
   controllers: [AppController],
