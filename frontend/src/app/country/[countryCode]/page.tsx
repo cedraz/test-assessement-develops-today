@@ -1,28 +1,17 @@
+import { CountryCard } from "@/components/country-card";
 import { getCountry } from "@/services/api";
+import { redirect } from "next/navigation";
 
 export default async function Country({
   params,
 }: {
   params: { countryCode: string };
 }) {
-  const country = await getCountry(params.countryCode);
+  const data = await getCountry(params.countryCode);
 
-  if (!country) {
-    return <div>Country not found</div>;
+  if (!data) {
+    redirect("/404");
   }
 
-  return (
-    <div>
-      <h1>{JSON.stringify(country)}</h1>
-      <ul>
-        {country.borders.map((border) => {
-          return (
-            <li key={border.commonName}>
-              <a href={`/country/${border}`}>{border.commonName}</a>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+  return <CountryCard countryResponse={data} />;
 }

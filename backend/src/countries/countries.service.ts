@@ -54,10 +54,6 @@ export class CountriesService {
       },
     );
 
-    if (!populationRequest.ok) {
-      throw new NotFoundException('No population data found for this country.');
-    }
-
     const population = await populationRequest.json();
 
     const flagRequest = await fetch(
@@ -73,16 +69,12 @@ export class CountriesService {
       },
     );
 
-    if (!flagRequest.ok) {
-      throw new NotFoundException('No flag found for this country.');
-    }
-
     const flag = await flagRequest.json();
 
     return {
       country: country,
       population: population,
-      flag: flag.data.flag,
+      flag: flag,
     };
   }
 }

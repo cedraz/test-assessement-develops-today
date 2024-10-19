@@ -18,3 +18,27 @@ export type Country = {
   region: string;
   borders: Border[];
 };
+
+type PopulationCounts = {
+  year: number;
+  value: number;
+};
+
+type Population = {
+  error: boolean;
+  msg: string;
+  data: [
+    {
+      country: string;
+      code: string;
+      iso3: string;
+      populationCounts: PopulationCounts[];
+    }
+  ];
+};
+
+export type CountryResponse = {
+  country: Country;
+  flag: string;
+  population: Population;
+};

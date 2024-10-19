@@ -3,6 +3,7 @@
 import { CountriesList as CountriesListType } from "@/types/country";
 import { useState } from "react";
 import { Input } from "./ui/input";
+import Link from "next/link";
 
 export function CountriesList({
   countriesList,
@@ -27,16 +28,20 @@ export function CountriesList({
         placeholder="Search country by name"
         onChange={(e) => setCountryName(e.target.value)}
       />
-      {filteredCountries.length > 0 ? (
-        filteredCountries.map((country) => (
-          <div key={country.countryCode}>
-            <h2>{country.name}</h2>
-            <p>countryCode: {country.countryCode}</p>
-          </div>
-        ))
-      ) : (
-        <p>No countries found</p>
-      )}
+      <div className="flex flex-wrap gap-3">
+        {filteredCountries.length > 0 ? (
+          filteredCountries.map((country) => (
+            <Link
+              key={country.countryCode}
+              href={`/country/${country.countryCode}`}
+            >
+              {country.name}
+            </Link>
+          ))
+        ) : (
+          <p>No countries found</p>
+        )}
+      </div>
     </div>
   );
 }
